@@ -84,6 +84,8 @@ import time
 import os
 import sys
 
+time.sleep(10)
+
 values = {}
 Vus = 2
 Rate = "1"
