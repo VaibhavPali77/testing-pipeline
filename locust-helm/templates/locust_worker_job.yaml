@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: locust-{{.Values.Rps}}rps-{{.Values.Vus}}vu
+spec:
+  manualSelector: true
+  parallelism: {{ .Values.Pods }}
+  selector:
+    matchLabels:
+      app: locust-worker
+  template:
+    metadata:
+      labels:
+        app: locust-worker
+    spec:
+      containers:
+      - name: locust-container
+        image: locustio/locust
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 500Mi
+        
+        args: ["-f", "-", "--headless", "--worker", "--master-host=locust-master-svc"]
+      restartPolicy: OnFailure

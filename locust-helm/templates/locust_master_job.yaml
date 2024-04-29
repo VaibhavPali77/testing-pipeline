@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: locust-master-{{.Values.Rps}}rps-{{.Values.Vus}}vu
+spec:
+  manualSelector: true
+  parallelism: 1
+  selector:
+    matchLabels:
+      app: locust-master
+  template:
+    metadata:
+      labels:
+        app: locust-master
+    spec:
+      volumes:
+      - name: locust-test-script
+        configMap:
+          name: locust-test
+      containers:
+      - name: locust-container
+        image: locustio/locust
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "0.1"
+        volumeMounts:
+        - name: locust-test-script
+          mountPath: /test_script/locustfile.py
+          subPath: locustfile.py
+        
+        args: ["--master", "--headless", "--expect-workers", "{{ .Values.Pods }}", "-f", "/test_script/locustfile.py", "--users", "{{.Values.Vus}}", "--spawn-rate", "{{.Values.Rate}}", "-H", "http://{{.Values.Ip}}:8000", "-t", "{{.Values.Duration}}"]
+      restartPolicy: OnFailure

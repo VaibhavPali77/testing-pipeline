@@ -1,0 +1,38 @@
+Duration: 30s
+Ip: 10.100.0.8
+Pods: '1'
+Rate: '125'
+Rps: '0.8'
+Script: "from locust import FastHttpUser, task, constant_throughput\n\nclass TestUser(FastHttpUser):\n\
+  \    wait_time = constant_throughput({{ .Values.Rps }})\n    \n    @task\n    def\
+  \ user_task(self):\n        data = {\n                \"_id\": \"65485b4346e1a95572e5f40b\"\
+  ,\n                \"index\": 2,\n                \"guid\": \"3b8ef5b1-8f52-4284-9412-e185f2ac54a2\"\
+  ,\n                \"isActive\": False,\n                \"balance\": \"$1,934.07\"\
+  ,\n                \"picture\": \"http://placehold.it/32x32\",\n               \
+  \ \"age\": 21,\n                \"eyeColor\": \"brown\",\n                \"name\"\
+  : \"Eleanor Bray\",\n                \"gender\": \"female\",\n                \"\
+  company\": \"ZAGGLES\",\n                \"email\": \"eleanorbray@zaggles.com\"\
+  ,\n                \"phone\": \"+1 (973) 519-3813\",\n                \"address\"\
+  : \"577 Cypress Court, Eggertsville, South Dakota, 7678\",\n                \"about\"\
+  : \"Enim dolore eiusmod duis veniam culpa commodo consectetur sunt eiusmod voluptate\
+  \ tempor excepteur Lorem. Dolor sit culpa ex eiusmod quis ad incididunt proident\
+  \ enim adipisicing esse culpa ea consequat. Cupidatat esse veniam aute labore eiusmod\
+  \ sit esse qui veniam duis. Adipisicing ipsum labore incididunt ad culpa velit amet\
+  \ ullamco proident in velit laborum. Id reprehenderit culpa in Lorem. Elit ipsum\
+  \ dolor irure occaecat amet. Et sit non aliquip in incididunt consequat in voluptate\
+  \ aliquip dolore.\\r\\n\",\n                \"registered\": \"2014-07-14T01:12:11\
+  \ -06:-30\",\n                \"latitude\": -60.722351,\n                \"longitude\"\
+  : 99.079594,\n                \"tags\": [\n                    \"esse\",\n     \
+  \               \"qui\",\n                    \"cupidatat\",\n                 \
+  \   \"ullamco\",\n                    \"dolore\",\n                    \"nisi\"\
+  ,\n                    \"anim\"\n                ],\n                \"friends\"\
+  : [\n                    {\n                        \"id\": 0,\n               \
+  \         \"name\": \"Briana Brown\"\n                    },\n                 \
+  \   {\n                        \"id\": 1,\n                        \"name\": \"\
+  Angelica Compton\"\n                    },\n                    {\n            \
+  \            \"id\": 2,\n                        \"name\": \"Miles House\"\n   \
+  \                 }\n                ],\n                \"greeting\": \"Hello,\
+  \ Eleanor Bray! You have 3 unread messages.\",\n                \"favoriteFruit\"\
+  : \"strawberry\"\n            }\n        self.client.request(\"POST\", \"/\", json\
+  \ = data)"
+Vus: '125'
