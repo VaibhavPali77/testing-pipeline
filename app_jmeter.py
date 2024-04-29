@@ -145,7 +145,13 @@ try:
 
 
     ######_______________________________________Check if all the workers are running
+    maxWait = 10
+    wait = -1
     while True:
+        wait += 1
+        if wait > maxWait:
+            raise Exception("Error worker taking too long to deploy......")
+        
         response = (subprocess.check_output(["kubectl", "get", "pods", "-o", "wide"]).decode("utf-8")).split("\n")
         exit_loop = True
         for line in response:
