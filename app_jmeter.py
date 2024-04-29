@@ -134,6 +134,7 @@ try:
     helmDirec = os.path.join(mainDir, f"{workerHelm}")
     if os.system(f"helm install jmeter-workers {helmDirec}") != 0:
         print("Error deploying helm.......")
+        raise Exception("Error deploying worker helm.......")
     else:
         print("Worker Helm chart deployed !")
     time.sleep(10)
