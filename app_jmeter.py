@@ -105,6 +105,9 @@ mainDir = os.path.dirname(__file__)
 masterHelm = sys.argv[2]
 workerHelm = sys.argv[3]
 
+print("Master helm :- ", masterHelm)
+print("Worker helm :- ", workerHelm)
+
 ######___________________________________________Extracting the main js script
 
 script = ""
