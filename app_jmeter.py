@@ -139,6 +139,19 @@ try:
     time.sleep(10)
 
 
+    ######_______________________________________Check if all the workers are running
+    while True:
+        response = (subprocess.check_output(["kubectl", "get", "pods", "-o", "wide"]).decode("utf-8")).split("\n")
+        exit_loop = True
+        for line in response:
+            if "jmeter" in line:
+                pod = line.split()
+                if pod[2] != "Running":
+                    exit_loop = False
+        if exit_loop:
+            break
+                
+
     WorkerIps = []
     response = (subprocess.check_output(["kubectl", "get", "pods", "-o", "wide"]).decode("utf-8")).split("\n")
     for line in response:
