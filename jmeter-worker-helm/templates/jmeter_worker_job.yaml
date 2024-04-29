@@ -24,7 +24,7 @@ spec:
         resources:
           requests:
             cpu: "1"
-            memory: 1Gi
+            memory: 500Mi
         volumeMounts:
         - name: jmeter-test-script
           mountPath: /test_script/jmeter_test.jmx
