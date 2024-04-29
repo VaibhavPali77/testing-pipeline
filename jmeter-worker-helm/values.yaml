@@ -1,0 +1,77 @@
+Duration: 30
+Ip: 10.100.1.10
+Pods: '2'
+Rate: '1'
+Rpm: 30000
+Script: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<jmeterTestPlan version=\"1.2\"\
+  \ properties=\"5.0\" jmeter=\"5.6.3\">\n  <hashTree>\n    <TestPlan guiclass=\"\
+  TestPlanGui\" testclass=\"TestPlan\" testname=\"Test Plan\">\n      <elementProp\
+  \ name=\"TestPlan.user_defined_variables\" elementType=\"Arguments\" guiclass=\"\
+  ArgumentsPanel\" testclass=\"Arguments\" testname=\"User Defined Variables\">\n\
+  \        <collectionProp name=\"Arguments.arguments\"/>\n      </elementProp>\n\
+  \      <boolProp name=\"TestPlan.functional_mode\">false</boolProp>\n      <boolProp\
+  \ name=\"TestPlan.serialize_threadgroups\">false</boolProp>\n    </TestPlan>\n \
+  \   <hashTree>\n      <ThreadGroup guiclass=\"ThreadGroupGui\" testclass=\"ThreadGroup\"\
+  \ testname=\"Users\">\n        <boolProp name=\"ThreadGroup.delayedStart\">true</boolProp>\n\
+  \        <intProp name=\"ThreadGroup.num_threads\">{{ .Values.Vus }}</intProp>\n\
+  \        <intProp name=\"ThreadGroup.ramp_time\">0</intProp>\n        <longProp\
+  \ name=\"ThreadGroup.duration\">{{ .Values.Duration }}</longProp>\n        <longProp\
+  \ name=\"ThreadGroup.delay\">0</longProp>\n        <boolProp name=\"ThreadGroup.same_user_on_next_iteration\"\
+  >true</boolProp>\n        <boolProp name=\"ThreadGroup.scheduler\">true</boolProp>\n\
+  \        <stringProp name=\"ThreadGroup.on_sample_error\">continue</stringProp>\n\
+  \        <elementProp name=\"ThreadGroup.main_controller\" elementType=\"LoopController\"\
+  \ guiclass=\"LoopControlPanel\" testclass=\"LoopController\" testname=\"Loop Controller\"\
+  >\n          <intProp name=\"LoopController.loops\">-1</intProp>\n          <boolProp\
+  \ name=\"LoopController.continue_forever\">false</boolProp>\n        </elementProp>\n\
+  \      </ThreadGroup>\n      <hashTree>\n        <HTTPSamplerProxy guiclass=\"HttpTestSampleGui\"\
+  \ testclass=\"HTTPSamplerProxy\" testname=\"HTTP Request\">\n          <stringProp\
+  \ name=\"HTTPSampler.domain\">{{ .Values.Ip }}</stringProp>\n          <stringProp\
+  \ name=\"HTTPSampler.port\">8000</stringProp>\n          <stringProp name=\"HTTPSampler.path\"\
+  >/</stringProp>\n          <boolProp name=\"HTTPSampler.follow_redirects\">true</boolProp>\n\
+  \          <stringProp name=\"HTTPSampler.method\">POST</stringProp>\n         \
+  \ <boolProp name=\"HTTPSampler.use_keepalive\">true</boolProp>\n          <boolProp\
+  \ name=\"HTTPSampler.postBodyRaw\">true</boolProp>\n          <elementProp name=\"\
+  HTTPsampler.Arguments\" elementType=\"Arguments\">\n            <collectionProp\
+  \ name=\"Arguments.arguments\">\n              <elementProp name=\"\" elementType=\"\
+  HTTPArgument\">\n                <boolProp name=\"HTTPArgument.always_encode\">false</boolProp>\n\
+  \                <stringProp name=\"Argument.value\">{&#xd;\n          &quot;_id&quot;:\
+  \ &quot;65485b432c70f3cfa43c08aa&quot;,&#xd;\n          &quot;index&quot;: 0,&#xd;\n\
+  \          &quot;guid&quot;: &quot;2110fa89-13d0-491a-854a-a59fce6c0e70&quot;,&#xd;\n\
+  \          &quot;isActive&quot;: false,&#xd;\n          &quot;balance&quot;: &quot;$3,571.66&quot;,&#xd;\n\
+  \          &quot;picture&quot;: &quot;http://placehold.it/32x32&quot;,&#xd;\n  \
+  \        &quot;age&quot;: 35,&#xd;\n          &quot;eyeColor&quot;: &quot;blue&quot;,&#xd;\n\
+  \          &quot;name&quot;: &quot;Wood Chase&quot;,&#xd;\n          &quot;gender&quot;:\
+  \ &quot;male&quot;,&#xd;\n          &quot;company&quot;: &quot;INVENTURE&quot;,&#xd;\n\
+  \          &quot;email&quot;: &quot;woodchase@inventure.com&quot;,&#xd;\n      \
+  \    &quot;phone&quot;: &quot;+1 (854) 550-2920&quot;,&#xd;\n          &quot;address&quot;:\
+  \ &quot;355 Times Placez, Hasty, Florida, 4847&quot;,&#xd;\n          &quot;about&quot;:\
+  \ &quot;Aliquip elit Lorem et velit sint nisi dolore Lorem occaecat laborum consectetur\
+  \ enim. Et incididunt voluptate qui deserunt dolore magna aliqua tempor nulla. Ea\
+  \ irure aliquip ex non reprehenderit non aliquip laboris ad minim duis anim. Quis\
+  \ amet enim voluptate qui est incididunt ea nostrud. In elit cillum reprehenderit\
+  \ eiusmod. Laboris reprehenderit velit laboris non Lorem excepteur excepteur. Cupidatat\
+  \ est laboris reprehenderit consectetur incididunt laborum.\\r\\n&quot;,&#xd;\n\
+  \          &quot;registered&quot;: &quot;2020-07-21T12:38:35 -06:-30&quot;,&#xd;\n\
+  \          &quot;latitude&quot;: -15.079694,&#xd;\n          &quot;longitude&quot;:\
+  \ 156.292971,&#xd;\n          &quot;tags&quot;: [&#xd;\n              &quot;dolore&quot;,&#xd;\n\
+  \              &quot;labore&quot;,&#xd;\n              &quot;mollit&quot;,&#xd;\n\
+  \              &quot;incididunt&quot;,&#xd;\n              &quot;sit&quot;,&#xd;\n\
+  \              &quot;dolore&quot;,&#xd;\n              &quot;aliqua&quot;&#xd;\n\
+  \          ],&#xd;\n          &quot;friends&quot;: [&#xd;\n              {&#xd;\n\
+  \                  &quot;id&quot;: 0,&#xd;\n                  &quot;name&quot;:\
+  \ &quot;Carly Pate&quot;&#xd;\n              },&#xd;\n              {&#xd;\n   \
+  \               &quot;id&quot;: 1,&#xd;\n                  &quot;name&quot;: &quot;Amy\
+  \ Woods&quot;&#xd;\n              },&#xd;\n              {&#xd;\n              \
+  \    &quot;id&quot;: 2,&#xd;\n                  &quot;name&quot;: &quot;Allison\
+  \ Castillo&quot;&#xd;\n              }&#xd;\n          ],&#xd;\n          &quot;greeting&quot;:\
+  \ &quot;Hello, Wood Chase! You have 1 unread messages.&quot;,&#xd;\n          &quot;favoriteFruit&quot;:\
+  \ &quot;apple&quot;&#xd;\n      }</stringProp>\n                <stringProp name=\"\
+  Argument.metadata\">=</stringProp>\n              </elementProp>\n            </collectionProp>\n\
+  \          </elementProp>\n        </HTTPSamplerProxy>\n        <hashTree>\n   \
+  \       <ConstantThroughputTimer guiclass=\"TestBeanGUI\" testclass=\"ConstantThroughputTimer\"\
+  \ testname=\"Constant Throughput Timer\" enabled=\"true\">\n            <intProp\
+  \ name=\"calcMode\">1</intProp>\n            <doubleProp>\n              <name>throughput</name>\n\
+  \              <value>{{ .Values.Rpm }}</value>\n              <savedValue>0.0</savedValue>\n\
+  \            </doubleProp>\n          </ConstantThroughputTimer>\n          <hashTree/>\n\
+  \        </hashTree>\n      </hashTree>\n    </hashTree>\n  </hashTree>\n</jmeterTestPlan>"
+Vus: 2

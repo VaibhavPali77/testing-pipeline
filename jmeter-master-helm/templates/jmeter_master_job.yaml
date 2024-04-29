@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: jmeter-master
+spec:
+  manualSelector: true
+  selector:
+    matchLabels:
+      app: jmeter-master
+  template:
+    metadata:
+      labels:
+        app: jmeter-master
+    spec:
+      volumes:
+      - name: jmeter-test-script
+        configMap:
+          name: jmeter-master-test
+      containers:
+      - name: jmeter-container
+        image: vaipali/my-first-repo:jmeter-distri
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: jmeter-test-script
+          mountPath: /test_script/jmeter_test.jmx
+          subPath: jmeter_test.jmx
+        
+        command: ["sh", "/jmeter_runner/apache-jmeter-5.6.3/bin/jmeter.sh", "-R", "{{ .Values.WorkerIps }}", "-n", "-t", "/test_script/jmeter_test.jmx", "-l", "out.csv", "-e"]
+      restartPolicy: OnFailure
