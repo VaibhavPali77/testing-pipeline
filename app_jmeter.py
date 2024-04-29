@@ -84,8 +84,6 @@ import time
 import os
 import sys
 
-time.sleep(10)
-
 values = {}
 Vus = 2
 Rate = "1"
@@ -125,7 +123,7 @@ for line in response:
 
 
 ######___________________________________________Populating the worker values.yaml file
-valuesFile = os.path.join(mainDir, f"{workerHelm}/values.yaml")
+valuesFile = f"{workerHelm}/values.yaml"
 with open(valuesFile, "w") as value_file:
     value_file.write(yaml.dump(values))
 
@@ -133,7 +131,7 @@ with open(valuesFile, "w") as value_file:
 try:
     time.sleep(2)
     ######_______________________________________Deploying worker Helm
-    helmDirec = os.path.join(mainDir, f"{workerHelm}")
+    helmDirec = workerHelm
     if os.system(f"helm install jmeter-workers {helmDirec}") != 0:
         print("Error deploying helm.......")
         raise Exception("Error deploying worker helm.......")
@@ -165,12 +163,12 @@ try:
 
 
     ####_________________________________________Populating the master values.yaml file
-    valuesFile = os.path.join(mainDir, f"{masterHelm}/values.yaml")
+    valuesFile = f"{masterHelm}/values.yaml"
     with open(valuesFile, "w") as value_file:
         value_file.write(yaml.dump(values))
 
     ######_______________________________________Deploying worker Helm
-    helmDirec = os.path.join(mainDir, f"{masterHelm}")
+    helmDirec = masterHelm
     if os.system(f"helm install jmeter-master {helmDirec}") != 0:
         print("\n\nError deploying helm.......")
     else:
