@@ -5,8 +5,8 @@ import os
 import sys
 values = {}
 
-Vus = "4"
-Rate = "4"
+Vus = "2"
+Rate = "2"
 Rps = "100"
 Duration = "300s"
 
