@@ -163,7 +163,7 @@ try:
         while True:
             response = (subprocess.check_output(["kubectl", "get", "pods"]).decode("utf-8")).split("\n")
             for line in response:
-                if "jmeter" in line:
+                if "jmeter-master" in line:
                     pod = line.split()
                     print(f"Status: {line}")
                     if pod[2] == "Completed":
