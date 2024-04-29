@@ -132,7 +132,7 @@ try:
     time.sleep(2)
     ######_______________________________________Deploying worker Helm
     helmDirec = workerHelm
-    print(helmDirec)
+    print("DIRECTORY :-", helmDirec)
     if os.system(f"helm install jmeter-workers {helmDirec}") != 0:
         print("Error deploying helm.......")
         raise Exception("Error deploying worker helm.......")
