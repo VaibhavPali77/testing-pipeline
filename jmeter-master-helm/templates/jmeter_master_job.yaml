@@ -18,12 +18,12 @@ spec:
           name: jmeter-master-test
       containers:
       - name: jmeter-container
-        image: vaipali/my-first-repo:jmeter-distri
+        image: vaipali/my-first-repo:jmeter-distri-v0.2
         imagePullPolicy: Always
         volumeMounts:
         - name: jmeter-test-script
           mountPath: /test_script/jmeter_test.jmx
           subPath: jmeter_test.jmx
         
-        # command: ["sh", "/jmeter_runner/apache-jmeter-5.6.3/bin/jmeter.sh", "-R", "{{ .Values.WorkerIps }}", "-n", "-t", "/test_script/jmeter_test.jmx", "-l", "out.csv", "-e"]
+        command: ["sh", "/jmeter_runner/apache-jmeter-5.6.3/bin/jmeter.sh", "-R", "{{ .Values.WorkerIps }}", "-n", "-t", "/test_script/jmeter_test.jmx", "-l", "out.csv", "-e"]
       restartPolicy: OnFailure

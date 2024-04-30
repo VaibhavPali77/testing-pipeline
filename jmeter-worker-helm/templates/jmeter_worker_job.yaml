@@ -19,7 +19,7 @@ spec:
           name: jmeter-test
       containers:
       - name: jmeter-container
-        image: vaipali/my-first-repo:jmeter-distri
+        image: vaipali/my-first-repo:jmeter-distri-v0.2
         imagePullPolicy: Always
         resources:
           requests:
@@ -30,5 +30,5 @@ spec:
           mountPath: /test_script/jmeter_test.jmx
           subPath: jmeter_test.jmx
         
-        # command: ["apache-jmeter-5.6.3/bin/jmeter-server"]
+        command: ["apache-jmeter-5.6.3/bin/jmeter-server"]
       restartPolicy: OnFailure
