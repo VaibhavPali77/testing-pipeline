@@ -11,9 +11,9 @@
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Users">
         <boolProp name="ThreadGroup.delayedStart">true</boolProp>
-        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.num_threads">2</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
-        <longProp name="ThreadGroup.duration">500</longProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
         <longProp name="ThreadGroup.delay">0</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
@@ -25,12 +25,11 @@
       </ThreadGroup>
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request">
-          <stringProp name="HTTPSampler.domain">10.100.0.14</stringProp>
+          <stringProp name="HTTPSampler.domain">{{ .Values.Ip }}</stringProp>
           <stringProp name="HTTPSampler.port">8000</stringProp>
           <stringProp name="HTTPSampler.path">/</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -91,41 +90,13 @@
             <intProp name="calcMode">1</intProp>
             <doubleProp>
               <name>throughput</name>
-              <value>6000.0</value>
+              <value>60000.0</value>
               <savedValue>0.0</savedValue>
             </doubleProp>
           </ConstantThroughputTimer>
-          <hashTree/>
-          <com.github.johrstrom.listener.PrometheusListener guiclass="com.github.johrstrom.listener.gui.PrometheusListenerGui" testclass="com.github.johrstrom.listener.PrometheusListener" testname="Prometheus Listener" enabled="true">
-            <collectionProp name="prometheus.collector_definitions">
-              <elementProp name="" elementType="com.github.johrstrom.listener.ListenerCollectorConfig">
-                <stringProp name="collector.help">Sampler Response Time</stringProp>
-                <stringProp name="collector.metric_name">ResponseTime</stringProp>
-                <stringProp name="collector.type">SUMMARY</stringProp>
-                <collectionProp name="collector.labels">
-                  <stringProp name="102727412">label</stringProp>
-                  <stringProp name="3059181">code</stringProp>
-                </collectionProp>
-                <stringProp name="collector.quantiles_or_buckets">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>
-                <stringProp name="listener.collector.listen_to">samples</stringProp>
-                <stringProp name="listener.collector.measuring">ResponseTime</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="com.github.johrstrom.listener.ListenerCollectorConfig">
-                <stringProp name="collector.help">Success and failure ratio</stringProp>
-                <stringProp name="collector.metric_name">Ratio</stringProp>
-                <stringProp name="collector.type">SUCCESS_RATIO</stringProp>
-                <collectionProp name="collector.labels">
-                  <stringProp name="102727412">label</stringProp>
-                  <stringProp name="3059181">code</stringProp>
-                </collectionProp>
-                <stringProp name="collector.quantiles_or_buckets"></stringProp>
-                <stringProp name="listener.collector.listen_to">samples</stringProp>
-                <stringProp name="listener.collector.measuring">SuccessRatio</stringProp>
-              </elementProp>
-            </collectionProp>
-          </com.github.johrstrom.listener.PrometheusListener>
           <hashTree/>
         </hashTree>
       </hashTree>
     </hashTree>
   </hashTree>
+</jmeterTestPlan>
