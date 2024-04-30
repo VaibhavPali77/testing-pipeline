@@ -30,5 +30,5 @@ spec:
           mountPath: /test_script/jmeter_test.jmx
           subPath: jmeter_test.jmx
         
-        command: ["apache-jmeter-5.6.3/bin/jmeter-server"]
+        # command: ["apache-jmeter-5.6.3/bin/jmeter-server"]
       restartPolicy: OnFailure

@@ -161,6 +161,7 @@ try:
                     exit_loop = False
         if exit_loop:
             break
+        time.sleep(10)
                 
 
     WorkerIps = []
