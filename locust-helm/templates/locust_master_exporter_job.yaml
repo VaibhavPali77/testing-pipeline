@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: locust-exporter
+spec:
+  manualSelector: true
+  parallelism: 1
+  selector:
+    matchLabels:
+      app: locust-exporter
+  template:
+    metadata:
+      labels:
+        app: locust-exporter
+    spec:
+      containers:
+      - name: locust-exporter-container
+        image: containersol/locust_exporter
+        imagePullPolicy: Always
+        env:
+        - name: LOCUST_EXPORTER_URI
+          value: 'http://locust-master-svc:8089'
+        - name: LOCUST_METRIC_NAMESPACE
+          value: '{{ .Release.Namespace }}'
+
+      restartPolicy: OnFailure

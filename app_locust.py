@@ -65,9 +65,9 @@ try:
         while True:
             response = (subprocess.check_output(["kubectl", "get", "pods"]).decode("utf-8")).split("\n")
             for line in response:
-                if "locust" in line:
+                if "locust-master" in line:
                     pod = line.split()
-                    print(f"Status: {pod[2]}")
+                    print(f"Status: {line}")
                     if pod[2] == "Completed":
                         results = (subprocess.check_output(["kubectl", "logs", pod[0]]).decode("utf-8"))
                         # if "master" in line:

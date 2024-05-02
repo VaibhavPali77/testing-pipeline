@@ -1,9 +1,9 @@
-Duration: 30s
-Ip: 10.100.0.8
+Duration: 90s
+Ip: 10.100.0.2
 Pods: '1'
-Rate: '125'
-Rps: '0.8'
-Script: "from locust import FastHttpUser, task, constant_throughput\n\nclass TestUser(FastHttpUser):\n\
+Rate: '2'
+Rps: '1000.0'
+Script: "from locust import FastHttpUser, task, constant_throughput\nclass TestUser(FastHttpUser):\n\
   \    wait_time = constant_throughput({{ .Values.Rps }})\n    \n    @task\n    def\
   \ user_task(self):\n        data = {\n                \"_id\": \"65485b4346e1a95572e5f40b\"\
   ,\n                \"index\": 2,\n                \"guid\": \"3b8ef5b1-8f52-4284-9412-e185f2ac54a2\"\
@@ -35,4 +35,4 @@ Script: "from locust import FastHttpUser, task, constant_throughput\n\nclass Tes
   \ Eleanor Bray! You have 3 unread messages.\",\n                \"favoriteFruit\"\
   : \"strawberry\"\n            }\n        self.client.request(\"POST\", \"/\", json\
   \ = data)"
-Vus: '125'
+Vus: '2'
