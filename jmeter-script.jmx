@@ -13,7 +13,7 @@
         <boolProp name="ThreadGroup.delayedStart">true</boolProp>
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
-        <longProp name="ThreadGroup.duration">500</longProp>
+        <longProp name="ThreadGroup.duration">300</longProp>
         <longProp name="ThreadGroup.delay">0</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
@@ -87,7 +87,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <intProp name="calcMode">1</intProp>
             <doubleProp>
               <name>throughput</name>
@@ -100,11 +100,10 @@
             <collectionProp name="prometheus.collector_definitions">
               <elementProp name="" elementType="com.github.johrstrom.listener.ListenerCollectorConfig">
                 <stringProp name="collector.help">Sampler Response Time</stringProp>
-                <stringProp name="collector.metric_name">ResponseTime</stringProp>
+                <stringProp name="collector.metric_name">jmeter_rt</stringProp>
                 <stringProp name="collector.type">SUMMARY</stringProp>
                 <collectionProp name="collector.labels">
-                  <stringProp name="102727412">label</stringProp>
-                  <stringProp name="3059181">code</stringProp>
+                  <stringProp name="3650">rt</stringProp>
                 </collectionProp>
                 <stringProp name="collector.quantiles_or_buckets">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>
                 <stringProp name="listener.collector.listen_to">samples</stringProp>
@@ -112,7 +111,7 @@
               </elementProp>
               <elementProp name="" elementType="com.github.johrstrom.listener.ListenerCollectorConfig">
                 <stringProp name="collector.help">Success and failure ratio</stringProp>
-                <stringProp name="collector.metric_name">Ratio</stringProp>
+                <stringProp name="collector.metric_name">jmeter_Ratio</stringProp>
                 <stringProp name="collector.type">SUCCESS_RATIO</stringProp>
                 <collectionProp name="collector.labels">
                   <stringProp name="102727412">label</stringProp>
@@ -122,6 +121,16 @@
                 <stringProp name="listener.collector.listen_to">samples</stringProp>
                 <stringProp name="listener.collector.measuring">SuccessRatio</stringProp>
               </elementProp>
+              <elementProp name="" elementType="com.github.johrstrom.listener.ListenerCollectorConfig">
+                <stringProp name="collector.help">default help string</stringProp>
+                <stringProp name="collector.metric_name">jmeter_latency</stringProp>
+                <stringProp name="collector.type">SUMMARY</stringProp>
+                <collectionProp name="collector.labels">
+                  <stringProp name="-46576386">latency</stringProp>
+                </collectionProp>
+                <stringProp name="collector.quantiles_or_buckets">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>
+                <stringProp name="listener.collector.measuring">Latency</stringProp>
+              </elementProp>
             </collectionProp>
           </com.github.johrstrom.listener.PrometheusListener>
           <hashTree/>
@@ -129,3 +138,4 @@
       </hashTree>
     </hashTree>
   </hashTree>
+</jmeterTestPlan>

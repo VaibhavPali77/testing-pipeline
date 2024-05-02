@@ -17,6 +17,7 @@ spec:
       - name: jmeter-test-script
         configMap:
           name: jmeter-test
+
       containers:
       - name: jmeter-container
         image: vaipali/my-first-repo:jmeter-distri-v0.2
@@ -25,10 +26,15 @@ spec:
           requests:
             cpu: "1"
             memory: 500Mi
+
         volumeMounts:
         - name: jmeter-test-script
           mountPath: /test_script/jmeter_test.jmx
           subPath: jmeter_test.jmx
+        
+        ports:
+        - name: jmprom
+          containerPort: 9270
         
         command: ["apache-jmeter-5.6.3/bin/jmeter-server"]
       restartPolicy: OnFailure

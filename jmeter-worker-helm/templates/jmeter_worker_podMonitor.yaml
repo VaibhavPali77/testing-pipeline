@@ -9,4 +9,4 @@ spec:
     matchLabels:
       app: jmeter
   podMetricsEndpoints:
-  - port: 9270
+  - port: jmprom

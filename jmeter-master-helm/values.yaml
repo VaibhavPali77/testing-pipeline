@@ -1,6 +1,6 @@
 Duration: 30
-Ip: 10.100.1.10
-Pods: '2'
+Ip: 10.100.0.2
+Pods: '1'
 Rate: '1'
 Rpm: 30000
 Script: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<jmeterTestPlan version=\"1.2\"\
@@ -13,15 +13,15 @@ Script: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<jmeterTestPlan version=\"1
   \ name=\"TestPlan.serialize_threadgroups\">false</boolProp>\n    </TestPlan>\n \
   \   <hashTree>\n      <ThreadGroup guiclass=\"ThreadGroupGui\" testclass=\"ThreadGroup\"\
   \ testname=\"Users\">\n        <boolProp name=\"ThreadGroup.delayedStart\">true</boolProp>\n\
-  \        <intProp name=\"ThreadGroup.num_threads\">{{ .Values.Vus }}</intProp>\n\
-  \        <intProp name=\"ThreadGroup.ramp_time\">0</intProp>\n        <longProp\
-  \ name=\"ThreadGroup.duration\">{{ .Values.Duration }}</longProp>\n        <longProp\
-  \ name=\"ThreadGroup.delay\">0</longProp>\n        <boolProp name=\"ThreadGroup.same_user_on_next_iteration\"\
-  >true</boolProp>\n        <boolProp name=\"ThreadGroup.scheduler\">true</boolProp>\n\
-  \        <stringProp name=\"ThreadGroup.on_sample_error\">continue</stringProp>\n\
-  \        <elementProp name=\"ThreadGroup.main_controller\" elementType=\"LoopController\"\
-  \ guiclass=\"LoopControlPanel\" testclass=\"LoopController\" testname=\"Loop Controller\"\
-  >\n          <intProp name=\"LoopController.loops\">-1</intProp>\n          <boolProp\
+  \        <intProp name=\"ThreadGroup.num_threads\">1</intProp>\n        <intProp\
+  \ name=\"ThreadGroup.ramp_time\">0</intProp>\n        <longProp name=\"ThreadGroup.duration\"\
+  >300</longProp>\n        <longProp name=\"ThreadGroup.delay\">0</longProp>\n   \
+  \     <boolProp name=\"ThreadGroup.same_user_on_next_iteration\">true</boolProp>\n\
+  \        <boolProp name=\"ThreadGroup.scheduler\">true</boolProp>\n        <stringProp\
+  \ name=\"ThreadGroup.on_sample_error\">continue</stringProp>\n        <elementProp\
+  \ name=\"ThreadGroup.main_controller\" elementType=\"LoopController\" guiclass=\"\
+  LoopControlPanel\" testclass=\"LoopController\" testname=\"Loop Controller\">\n\
+  \          <intProp name=\"LoopController.loops\">-1</intProp>\n          <boolProp\
   \ name=\"LoopController.continue_forever\">false</boolProp>\n        </elementProp>\n\
   \      </ThreadGroup>\n      <hashTree>\n        <HTTPSamplerProxy guiclass=\"HttpTestSampleGui\"\
   \ testclass=\"HTTPSamplerProxy\" testname=\"HTTP Request\">\n          <stringProp\
@@ -71,8 +71,41 @@ Script: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<jmeterTestPlan version=\"1
   \       <ConstantThroughputTimer guiclass=\"TestBeanGUI\" testclass=\"ConstantThroughputTimer\"\
   \ testname=\"Constant Throughput Timer\" enabled=\"true\">\n            <intProp\
   \ name=\"calcMode\">1</intProp>\n            <doubleProp>\n              <name>throughput</name>\n\
-  \              <value>{{ .Values.Rpm }}</value>\n              <savedValue>0.0</savedValue>\n\
+  \              <value>6000.0</value>\n              <savedValue>0.0</savedValue>\n\
   \            </doubleProp>\n          </ConstantThroughputTimer>\n          <hashTree/>\n\
-  \        </hashTree>\n      </hashTree>\n    </hashTree>\n  </hashTree>\n</jmeterTestPlan>"
+  \          <com.github.johrstrom.listener.PrometheusListener guiclass=\"com.github.johrstrom.listener.gui.PrometheusListenerGui\"\
+  \ testclass=\"com.github.johrstrom.listener.PrometheusListener\" testname=\"Prometheus\
+  \ Listener\" enabled=\"true\">\n            <collectionProp name=\"prometheus.collector_definitions\"\
+  >\n              <elementProp name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
+  >\n                <stringProp name=\"collector.help\">Sampler Response Time</stringProp>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_rt</stringProp>\n\
+  \                <stringProp name=\"collector.type\">SUMMARY</stringProp>\n    \
+  \            <collectionProp name=\"collector.labels\">\n                  <stringProp\
+  \ name=\"3650\">rt</stringProp>\n                </collectionProp>\n           \
+  \     <stringProp name=\"collector.quantiles_or_buckets\">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n\
+  \                <stringProp name=\"listener.collector.listen_to\">samples</stringProp>\n\
+  \                <stringProp name=\"listener.collector.measuring\">ResponseTime</stringProp>\n\
+  \              </elementProp>\n              <elementProp name=\"\" elementType=\"\
+  com.github.johrstrom.listener.ListenerCollectorConfig\">\n                <stringProp\
+  \ name=\"collector.help\">Success and failure ratio</stringProp>\n             \
+  \   <stringProp name=\"collector.metric_name\">jmeter_Ratio</stringProp>\n     \
+  \           <stringProp name=\"collector.type\">SUCCESS_RATIO</stringProp>\n   \
+  \             <collectionProp name=\"collector.labels\">\n                  <stringProp\
+  \ name=\"102727412\">label</stringProp>\n                  <stringProp name=\"3059181\"\
+  >code</stringProp>\n                </collectionProp>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\"></stringProp>\n                <stringProp\
+  \ name=\"listener.collector.listen_to\">samples</stringProp>\n                <stringProp\
+  \ name=\"listener.collector.measuring\">SuccessRatio</stringProp>\n            \
+  \  </elementProp>\n              <elementProp name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
+  >\n                <stringProp name=\"collector.help\">default help string</stringProp>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_latency</stringProp>\n\
+  \                <stringProp name=\"collector.type\">SUMMARY</stringProp>\n    \
+  \            <collectionProp name=\"collector.labels\">\n                  <stringProp\
+  \ name=\"-46576386\">latency</stringProp>\n                </collectionProp>\n \
+  \               <stringProp name=\"collector.quantiles_or_buckets\">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n\
+  \                <stringProp name=\"listener.collector.measuring\">Latency</stringProp>\n\
+  \              </elementProp>\n            </collectionProp>\n          </com.github.johrstrom.listener.PrometheusListener>\n\
+  \          <hashTree/>\n        </hashTree>\n      </hashTree>\n    </hashTree>\n\
+  \  </hashTree>\n</jmeterTestPlan>"
 Vus: 2
-WorkerIps: 10.100.0.54,10.100.0.55
+WorkerIps: 10.100.0.30
