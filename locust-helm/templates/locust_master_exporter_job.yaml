@@ -21,6 +21,6 @@ spec:
         - name: LOCUST_EXPORTER_URI
           value: 'http://locust-master-svc:8089'
         - name: LOCUST_METRIC_NAMESPACE
-          value: '{{ kbb-test-kube }}'
+          value: 'kbb-test-kube'
 
       restartPolicy: OnFailure
