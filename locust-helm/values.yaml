@@ -1,6 +1,6 @@
-Duration: 90s
-Ip: 10.100.0.2
-Pods: '1'
+Duration: 120s
+Ip: 10.80.0.20
+Pods: '2'
 Rate: '2'
 Rps: '1000.0'
 Script: "from locust import FastHttpUser, task, constant_throughput\nclass TestUser(FastHttpUser):\n\

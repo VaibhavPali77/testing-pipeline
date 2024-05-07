@@ -13,7 +13,7 @@ Duration = "120s"
 try:
     Pods = os.environ["DISTRIBUTED_PODS"]
 except:
-    Pods = "1"
+    Pods = "2"
 
 values["Vus"] = Vus
 values["Rate"] = Rate
