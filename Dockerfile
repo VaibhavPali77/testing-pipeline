@@ -23,7 +23,7 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/h
 RUN apt update
 RUN apt install helm -y
 
-RUN mkdir framework
-WORKDIR /framework
+# RUN mkdir framework
+# WORKDIR /framework
 
 CMD ["sleep", "infinity"]
