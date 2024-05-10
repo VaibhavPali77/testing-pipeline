@@ -1,5 +1,5 @@
 Duration: 120s
-Hostname: sensitive-urchin
+Hostname: sensitive
 Ip: 10.80.1.12
 Pods: '2'
 Rate: '2'

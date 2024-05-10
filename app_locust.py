@@ -20,8 +20,10 @@ values["Rate"] = Rate
 values["Rps"] = str(float(Rps)/float(Vus))
 values["Duration"] = Duration
 values["Pods"] = Pods
-values["Hostname"] = os.uname()[1]
-hostname = values["Hostname"]
+
+hostname = os.uname()[1]
+hostname = hostname.split("-")[0]
+values["Hostname"] = hostname
 
 pythonScript = sys.argv[1]
 mainDir = os.path.dirname(__file__)
