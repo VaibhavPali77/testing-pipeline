@@ -81,7 +81,7 @@ try:
                 break
             time.sleep(30)
 
-except :
+finally :
     print("\n\n........deleting locust instance")
-    os.system("helm uninstall {hostname}-locust")
+    os.system(f"helm uninstall {hostname}-locust")
 
