@@ -21,6 +21,7 @@ values["Rps"] = str(float(Rps)/float(Vus))
 values["Duration"] = Duration
 values["Pods"] = Pods
 values["Hostname"] = os.uname()[1]
+hostname = values["Hostname"]
 
 pythonScript = sys.argv[1]
 mainDir = os.path.dirname(__file__)
@@ -58,7 +59,7 @@ print("Populated values.yaml")
 try:
     time.sleep(2)
     helmDirec = os.path.join(mainDir, helmFolder)
-    if os.system(f"helm install {values["Hostname"]}-locust {helmDirec}") != 0:
+    if os.system(f"helm install {hostname}-locust {helmDirec}") != 0:
         print("Error deploying helm.......")
     else:
         print("Helm chart deployed !")
@@ -82,5 +83,5 @@ try:
 
 except :
     print("\n\n........deleting locust instance")
-    os.system("helm uninstall locust")
+    os.system("helm uninstall {hostname}-locust")
 
