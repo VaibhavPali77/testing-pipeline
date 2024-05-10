@@ -20,6 +20,7 @@ values["Rate"] = Rate
 values["Rps"] = str(float(Rps)/float(Vus))
 values["Duration"] = Duration
 values["Pods"] = Pods
+values["Hostname"] = os.uname()[1]
 
 pythonScript = sys.argv[1]
 mainDir = os.path.dirname(__file__)
@@ -78,6 +79,8 @@ try:
             if finished :
                 break
             time.sleep(30)
-finally:
+
+except :
     print("\n\n........deleting locust instance")
     os.system("helm uninstall locust")
+

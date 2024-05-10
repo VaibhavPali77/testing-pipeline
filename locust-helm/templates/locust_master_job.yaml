@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: locust-master-{{.Values.Rps}}rps-{{.Values.Vus}}vu
+  name: {{.Values.Hostname}}-locust-master-{{.Values.Rps}}rps-{{.Values.Vus}}vu
 spec:
   manualSelector: true
   parallelism: 1
