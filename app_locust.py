@@ -58,27 +58,28 @@ print("Populated values.yaml")
 try:
     time.sleep(2)
     helmDirec = os.path.join(mainDir, helmFolder)
-    if os.system(f"helm install locust {helmDirec}") != 0:
-        print("Error deploying helm.......")
-    else:
-        print("Helm chart deployed !")
-        finished = False
-        while True:
-            response = (subprocess.check_output(["kubectl", "get", "pods"]).decode("utf-8")).split("\n")
-            for line in response:
-                if "locust-master" in line:
-                    pod = line.split()
-                    print(f"Status: {line}")
-                    if pod[2] == "Completed":
-                        results = (subprocess.check_output(["kubectl", "logs", pod[0]]).decode("utf-8"))
-                        # if "master" in line:
-                        #     print(results)
-                        print(results)
-                        print("\n\n\n\n\n\n")
-                        finished = True
-            if finished :
-                break
-            time.sleep(30)
+    os.system(f"helm install locust {helmDirec}")
+    # if os.system(f"helm install locust {helmDirec}") != 0:
+    #     print("Error deploying helm.......")
+    # else:
+    print("Helm chart deployed !")
+    finished = False
+    while True:
+        response = (subprocess.check_output(["kubectl", "get", "pods"]).decode("utf-8")).split("\n")
+        for line in response:
+            if "locust-master" in line:
+                pod = line.split()
+                print(f"Status: {line}")
+                if pod[2] == "Completed":
+                    results = (subprocess.check_output(["kubectl", "logs", pod[0]]).decode("utf-8"))
+                    # if "master" in line:
+                    #     print(results)
+                    print(results)
+                    print("\n\n\n\n\n\n")
+                    finished = True
+        if finished :
+            break
+        time.sleep(30)
 
 except :
     print("\n\n........deleting locust instance")
