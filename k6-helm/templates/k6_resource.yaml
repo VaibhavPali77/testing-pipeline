@@ -1,0 +1,32 @@
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: k6-{{ .Values.Rps }}rps-{{ .Values.Vus }}vus
+#env:
+#- name: K6_PROMETHEUS_RW_SERVER_URL
+#  value: "http://35.231.228.61:31204/api/v1/write"
+spec:
+  parallelism: {{ .Values.Pods }}
+  script:
+    configMap:
+      name: load-testing
+      file: load-test.js
+  runner:
+    env:
+    - name: K6_PROMETHEUS_RW_SERVER_URL
+      # value: "http://34.111.18.10/api/v1/write"
+      value: "http://34.49.45.68/api/v1/write"
+    - name: K6_PROMETHEUS_RW_TREND_STATS
+      value: "p(99),count,sum"
+    - name: K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM
+      value: "false"
+    - name: K6_NO_VU_CONNECTION_REUSE
+      value: "true"
+    resources:
+      requests:
+        memory: "1024Mi"
+        cpu: "1000m"
+      # limits:
+      #   memory: "1024Mi"
+      #   cpu: "1000m"
+  arguments: --out experimental-prometheus-rw --verbose
