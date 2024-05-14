@@ -9,7 +9,10 @@ Vus = "1"
 Rate = "1"
 Rps = "100"
 Duration = "30s"
-Pods = "1"
+try:
+    Pods = os.environ["DISTRIBUTED_PODS"]
+except:
+    Pods = "1"
 
 values["Vus"] = Vus
 values["Rate"] = Rate
