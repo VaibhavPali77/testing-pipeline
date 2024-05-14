@@ -8,7 +8,7 @@ values = {}
 Vus = "1"
 Rate = "1"
 Rps = "100"
-Duration = "300s"
+Duration = "30s"
 Pods = "1"
 
 values["Vus"] = Vus
