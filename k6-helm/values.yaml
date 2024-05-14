@@ -1,6 +1,6 @@
-Duration: 300s
+Duration: 30s
 Ip: 10.80.0.13
-Pods: '1'
+Pods: '2'
 Rate: '1'
 Rps: '100'
 Script: "import http from 'k6/http';\nexport const options = {\n  scenarios: {\n \
@@ -32,4 +32,4 @@ Script: "import http from 'k6/http';\nexport const options = {\n  scenarios: {\n
   \          }\n      ],\n      \"greeting\": \"Hello, Eleanor Bray! You have 3 unread\
   \ messages.\",\n      \"favoriteFruit\": \"strawberry\"\n  };\n  http.post('http://{{.Values.Ip}}:8000/',\
   \ JSON.stringify(data));\n}"
-Vus: '1'
+Vus: '2'
