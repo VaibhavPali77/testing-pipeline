@@ -29,7 +29,7 @@ with open(jsScript, "r") as k6_script:
 
 ######___________________________________________Extracting the IP address
 
-response = (subprocess.check_output(["kubectl", "get", "pods", "-o", "wide"]).decode("utf-8")).split("\n")
+response = (subprocess.check_output(["kubectl", "get", "pods", "-o", "wide", "--namespace", "default"]).decode("utf-8")).split("\n")
 for line in response:
     if "dynamic-app" in line:
         pod = line.split()
