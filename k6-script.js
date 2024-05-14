@@ -58,5 +58,5 @@ export default function () {
       "greeting": "Hello, Eleanor Bray! You have 3 unread messages.",
       "favoriteFruit": "strawberry"
   };
-  http.post('http://{{.Values.Ip}}:800/', JSON.stringify(data));
+  http.post('http://{{.Values.Ip}}:8000/', JSON.stringify(data));
 }
