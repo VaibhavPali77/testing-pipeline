@@ -23,7 +23,6 @@ values["Pods"] = Pods
 
 hostname = os.uname()[1]
 hostname = hostname.split("-")[0]
-hostname = "664524a3aa257f4d3f0d8727"
 values["Hostname"] = hostname
 
 pythonScript = sys.argv[1]
