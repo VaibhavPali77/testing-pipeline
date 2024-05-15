@@ -74,11 +74,12 @@ try:
                     print(f"Status: {line}")
                     if pod[2] == "Completed":
                         results = (subprocess.check_output(["kubectl", "logs", pod[0]]).decode("utf-8"))
-                        # if "master" in line:
-                        #     print(results)
-                        print(results)
-                        print("\n\n\n\n\n\n")
-                        finished = True
+                        if "master" in line:
+                            print(results)
+                            break
+                        # print(results)
+                        # print("\n\n\n\n\n\n")
+                        # finished = True
             if finished :
                 break
             time.sleep(30)
