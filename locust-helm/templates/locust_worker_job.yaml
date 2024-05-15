@@ -2,19 +2,21 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{.Values.Hostname}}-locust-{{.Values.Rps}}rps-{{.Values.Vus}}vu
+  annotations:
+    helm.sh/hook-weight: "6"
 spec:
   manualSelector: true
   parallelism: {{ .Values.Pods }}
   selector:
     matchLabels:
-      app: locust-worker
+      app: {{.Values.Hostname}}-locust-worker
   template:
     metadata:
       labels:
-        app: locust-worker
+        app: {{.Values.Hostname}}-locust-worker
     spec:
       containers:
-      - name: locust-container
+      - name: {{.Values.Hostname}}-locust-container
         image: locustio/locust
         imagePullPolicy: Always
         resources:
@@ -22,5 +24,5 @@ spec:
             cpu: "1"
             memory: 500Mi
         
-        args: ["-f", "-", "--headless", "--worker", "--master-host=locust-master-svc"]
+        args: ["-f", "-", "--headless", "--worker", "--master-host={{.Values.Hostname}}-locust-master-svc"]
       restartPolicy: OnFailure

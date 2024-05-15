@@ -1,6 +1,6 @@
-Duration: 120s
+Duration: 20s
 Hostname: sensitive
-Ip: 10.80.1.12
+Ip: 10.80.0.13
 Pods: '2'
 Rate: '2'
 Rps: '1000.0'

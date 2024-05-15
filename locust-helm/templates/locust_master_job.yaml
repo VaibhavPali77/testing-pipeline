@@ -2,16 +2,18 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{.Values.Hostname}}-locust-master-{{.Values.Rps}}rps-{{.Values.Vus}}vu
+  annotations:
+    helm.sh/hook-weight: "2"
 spec:
   manualSelector: true
   parallelism: 1
   selector:
     matchLabels:
-      app: locust-master
+      app: {{.Values.Hostname}}-locust-master
   template:
     metadata:
       labels:
-        app: locust-master
+        app: {{.Values.Hostname}}-locust-master
     spec:
       volumes:
       - name: locust-test-script
@@ -29,5 +31,5 @@ spec:
           mountPath: /test_script/locustfile.py
           subPath: locustfile.py
         
-        args: ["--master", "--autostart", "--autoquit", "5", "--expect-workers", "{{ .Values.Pods }}", "-f", "/test_script/locustfile.py", "--users", "{{.Values.Vus}}", "--spawn-rate", "{{.Values.Rate}}", "-H", "http://{{.Values.Ip}}:8000", "-t", "{{.Values.Duration}}"]
+        args: ["--master", "--autostart", "--autoquit", "5", "--expect-workers", "{{ .Values.Pods }}", "-f", "/test_script/locustfile.py", "--users", "{{.Values.Vus}}", "--spawn-rate", "{{.Values.Rate}}", "-H", "http://{{.Values.Ip}}:8000", "-t", "{{.Values.Duration}}", "--json", "--print-stats"]
       restartPolicy: OnFailure

@@ -1,26 +1,32 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: locust-exporter
+  name: {{.Values.Hostname}}-locust-exporter
+  annotations:
+    helm.sh/hook-weight: "4"
 spec:
   manualSelector: true
   parallelism: 1
   selector:
     matchLabels:
-      app: locust-exporter
+      app: {{.Values.Hostname}}-locust-exporter
   template:
     metadata:
       labels:
-        app: locust-exporter
+        app: {{.Values.Hostname}}-locust-exporter
     spec:
       containers:
-      - name: locust-exporter-container
+      - name: {{.Values.Hostname}}-locust-exporter-container
         image: containersol/locust_exporter
         imagePullPolicy: Always
         env:
         - name: LOCUST_EXPORTER_URI
-          value: 'http://locust-master-svc:8089'
+          value: 'http://{{.Values.Hostname}}-locust-master-svc:8089'
         - name: LOCUST_METRIC_NAMESPACE
           value: '{{ .Release.Namespace }}'
+
+        ports:
+        - name: lcprom
+          containerPort: 9646
 
       restartPolicy: OnFailure
