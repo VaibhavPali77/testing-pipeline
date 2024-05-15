@@ -16,7 +16,7 @@ spec:
       volumes:
       - name: locust-test-script
         configMap:
-          name: locust-test
+          name: {{.Values.Hostname}}-locust-test
       containers:
       - name: locust-container
         image: locustio/locust
