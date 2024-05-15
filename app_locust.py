@@ -8,7 +8,7 @@ values = {}
 Vus = "2"
 Rate = "2"
 Rps = "2000"
-Duration = "120s"
+Duration = "20s"
 
 try:
     Pods = os.environ["DISTRIBUTED_PODS"]
