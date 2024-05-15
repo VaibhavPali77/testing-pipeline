@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: LOCUST_EXPORTER_URI
-          value: 'http://{{.Values.Hostname}}-locust-master-svc:8089'
+          value: 'http://locust-master-svc-{{.Values.Hostname}}:8089'
         - name: LOCUST_METRIC_NAMESPACE
           value: '{{ .Release.Namespace }}'
 
