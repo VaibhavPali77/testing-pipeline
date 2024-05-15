@@ -7,7 +7,7 @@ values = {}
 
 Vus = "2"
 Rate = "2"
-Rps = "2000"
+Rps = "200"
 Duration = "300s"
 
 try:
