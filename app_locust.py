@@ -76,6 +76,7 @@ try:
                         results = (subprocess.check_output(["kubectl", "logs", pod[0]]).decode("utf-8"))
                         if "master" in line:
                             print(results)
+                            finished = True
                             break
                         # print(results)
                         # print("\n\n\n\n\n\n")
