@@ -1,6 +1,6 @@
 Duration: 30s
 Ip: 10.80.0.13
-Pods: '2'
+Pods: '1'
 Rate: '1'
 Rps: '100'
 Script: "import http from 'k6/http';\nexport const options = {\n  scenarios: {\n \
@@ -30,6 +30,6 @@ Script: "import http from 'k6/http';\nexport const options = {\n  scenarios: {\n
   \          \"id\": 1,\n              \"name\": \"Angelica Compton\"\n          },\n\
   \          {\n              \"id\": 2,\n              \"name\": \"Miles House\"\n\
   \          }\n      ],\n      \"greeting\": \"Hello, Eleanor Bray! You have 3 unread\
-  \ messages.\",\n      \"favoriteFruit\": \"strawberry\"\n  };\n  http.post('http://{{.Values.Ip}}:8000/',\
-  \ JSON.stringify(data));\n}"
+  \ messages.\",\n      \"favoriteFruit\": \"strawberry\"\n  };\n  (http.post('http://{{.Values.Ip}}:8000/',\
+  \ JSON.stringify(data)));\n}"
 Vus: '2'

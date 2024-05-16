@@ -29,4 +29,4 @@ spec:
       # limits:
       #   memory: "1024Mi"
       #   cpu: "1000m"
-  arguments: --out experimental-prometheus-rw --console-output 
+  arguments: --out experimental-prometheus-rw 
