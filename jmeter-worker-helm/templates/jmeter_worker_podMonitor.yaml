@@ -1,12 +1,12 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: jmeter
+  name: {{.Values.Hostname}}-jmeter
   labels:
     team: loadtest
 spec:
   selector:
     matchLabels:
-      app: jmeter
+      app: {{.Values.Hostname}}-jmeter
   podMetricsEndpoints:
   - port: jmprom

@@ -1,23 +1,23 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: jmeter-master
+  name: {{.Values.Hostname}}-jmeter-master
 spec:
   manualSelector: true
   selector:
     matchLabels:
-      app: jmeter-master
+      app: {{.Values.Hostname}}-jmeter-master
   template:
     metadata:
       labels:
-        app: jmeter-master
+        app: {{.Values.Hostname}}-jmeter-master
     spec:
       volumes:
       - name: jmeter-test-script
         configMap:
-          name: jmeter-master-test
+          name: {{.Values.Hostname}}-jmeter-master-test
       containers:
-      - name: jmeter-container
+      - name: {{.Values.Hostname}}-jmeter-container
         image: vaipali/my-first-repo:jmeter-distri-v0.2
         imagePullPolicy: Always
         volumeMounts:

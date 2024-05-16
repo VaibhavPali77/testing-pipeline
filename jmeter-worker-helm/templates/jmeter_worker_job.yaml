@@ -1,25 +1,25 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: jmeter-{{ .Values.Rpm }}rpm-{{ .Values.Vus }}threads
+  name: {{.Values.Hostname}}-jmeter-{{ .Values.Rpm }}rpm-{{ .Values.Vus }}threads
 spec:
   manualSelector: true
   parallelism: {{ .Values.Pods }}
   selector:
     matchLabels:
-      app: jmeter
+      app: {{.Values.Hostname}}-jmeter
   template:
     metadata:
       labels:
-        app: jmeter
+        app: {{.Values.Hostname}}-jmeter
     spec:
       volumes:
       - name: jmeter-test-script
         configMap:
-          name: jmeter-test
+          name: {{.Values.Hostname}}-jmeter-test
 
       containers:
-      - name: jmeter-container
+      - name: {{.Values.Hostname}}-jmeter-container
         image: vaipali/my-first-repo:jmeter-distri-v0.2
         imagePullPolicy: Always
         resources:

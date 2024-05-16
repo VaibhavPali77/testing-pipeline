@@ -105,6 +105,10 @@ mainDir = os.path.dirname(__file__)
 masterHelm = sys.argv[2]
 workerHelm = sys.argv[3]
 
+hostname = os.uname()[1]
+hostname = hostname.split("-")[0]
+values["Hostname"] = hostname
+
 print("Master helm :- ", masterHelm)
 print("Worker helm :- ", workerHelm)
 
@@ -136,7 +140,7 @@ try:
     ######_______________________________________Deploying worker Helm
     helmDirec = workerHelm
     print("DIRECTORY :-", helmDirec)
-    if os.system(f"helm install jmeter-workers {helmDirec}") != 0:
+    if os.system(f"helm install {hostname}-jmeter-workers {helmDirec}") != 0:
         print("Error deploying helm.......")
         raise Exception("Error deploying worker helm.......")
     else:
@@ -150,12 +154,12 @@ try:
     while True:
         wait += 1
         if wait > maxWait:
-            raise Exception("Error worker taking too long to deploy......")
+            raise Exception("Error!! Worker taking too long to deploy......")
         
         response = (subprocess.check_output(["kubectl", "get", "pods", "-o", "wide"]).decode("utf-8")).split("\n")
         exit_loop = True
         for line in response:
-            if "jmeter" in line:
+            if ("jmeter" in line) and (hostname in line):
                 pod = line.split()
                 if pod[2] != "Running":
                     exit_loop = False
@@ -167,10 +171,12 @@ try:
     WorkerIps = []
     response = (subprocess.check_output(["kubectl", "get", "pods", "-o", "wide"]).decode("utf-8")).split("\n")
     for line in response:
-        if "jmeter" in line:
+        print(line)
+        if ("jmeter" in line) and (hostname in line):
             pod = line.split()
             WorkerIps.append(pod[5])
     values["WorkerIps"] = ",".join(WorkerIps)
+    print("Worker Ips :", values["WorkerIps"])
 
 
     ####_________________________________________Populating the master values.yaml file
@@ -180,7 +186,7 @@ try:
 
     ######_______________________________________Deploying worker Helm
     helmDirec = masterHelm
-    if os.system(f"helm install jmeter-master {helmDirec}") != 0:
+    if os.system(f"helm install {hostname}-jmeter-master {helmDirec}") != 0:
         print("\n\nError deploying helm.......")
     else:
         print("\n\nMaster Helm chart deployed !")
@@ -188,7 +194,7 @@ try:
         while True:
             response = (subprocess.check_output(["kubectl", "get", "pods"]).decode("utf-8")).split("\n")
             for line in response:
-                if "jmeter-master" in line:
+                if ("jmeter-master" in line) and (hostname in line):
                     pod = line.split()
                     print(f"Status: {line}")
                     if pod[2] == "Completed":
@@ -200,5 +206,5 @@ try:
             time.sleep(30)
 finally:
     print("\n\n\n\n........deleting jmeter instance")
-    os.system("helm uninstall jmeter-workers")
-    os.system("helm uninstall jmeter-master")
+    os.system(f"helm uninstall{hostname}-jmeter-workers")
+    os.system(f"helm uninstall {hostname}-jmeter-master")
