@@ -9,6 +9,7 @@ spec:
     matchLabels:
       app: {{.Values.Hostname}}-jmeter
       tool: jmeter
+      test: {{.Values.Hostname}}
   template:
     metadata:
       labels:
