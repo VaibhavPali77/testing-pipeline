@@ -3,4 +3,4 @@ data:
   load-test.js: {{- tpl .Values.Script . | toYaml | indent 2}}
 kind: ConfigMap
 metadata:
-  name: load-testing
+  name: {{.Values.Hostname}}-load-testing

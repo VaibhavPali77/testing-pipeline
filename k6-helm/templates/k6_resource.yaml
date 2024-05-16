@@ -1,7 +1,7 @@
 apiVersion: k6.io/v1alpha1
 kind: TestRun
 metadata:
-  name: k6-{{ .Values.Rps }}rps-{{ .Values.Vus }}vus
+  name: k6-{{ .Values.Rps }}rps-{{ .Values.Vus }}vus-{{.Values.Hostname}}
 #env:
 #- name: K6_PROMETHEUS_RW_SERVER_URL
 #  value: "http://35.231.228.61:31204/api/v1/write"
@@ -9,7 +9,7 @@ spec:
   parallelism: {{ .Values.Pods }}
   script:
     configMap:
-      name: load-testing
+      name: {{.Values.Hostname}}-load-testing
       file: load-test.js
   runner:
     env:

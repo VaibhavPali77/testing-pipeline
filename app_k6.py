@@ -20,6 +20,10 @@ values["Rps"] = Rps
 values["Duration"] = Duration
 values["Pods"] = Pods
 
+hostname = os.uname()[1]
+hostname = hostname.split("-")[0]
+values["Hostname"] = hostname
+
 jsScript = sys.argv[1]
 mainDir = os.path.dirname(__file__)
 ######___________________________________________Extracting the main js script
@@ -50,7 +54,7 @@ with open(valuesFile, "w") as value_file:
 try:
     time.sleep(2)
     helmDirec = os.path.join(mainDir, "k6-helm")
-    if os.system(f"helm install k6 {helmDirec}") != 0:
+    if os.system(f"helm install {hostname}-k6 {helmDirec}") != 0:
         print("Error deploying helm.......")
     else:
         print("Helm chart deployed !")
@@ -58,7 +62,7 @@ try:
         while True:
             response = (subprocess.check_output(["kubectl", "get", "pods"]).decode("utf-8")).split("\n")
             for line in response:
-                if ("k6" in line) and ("initializer" not in line) and ("operator" not in line) and ("starter" not in line):
+                if ("k6" in line) and (hostname in line) and ("initializer" not in line) and ("operator" not in line) and ("starter" not in line):
                     pod = line.split()
                     print(f"Status: {line} : {pod[2]}")
                     if pod[2] == "Completed":
@@ -70,4 +74,4 @@ try:
             time.sleep(30)
 finally:
     print("\n\n\n\n........deleting K6 instance")
-    os.system("helm uninstall k6")
+    os.system(f"helm uninstall {hostname}-k6")
