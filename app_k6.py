@@ -59,15 +59,19 @@ try:
     else:
         print("Helm chart deployed !")
         finished = False
+
+        completed = []
         while True:
             response = (subprocess.check_output(["kubectl", "get", "pods"]).decode("utf-8")).split("\n")
             for line in response:
                 if ("k6" in line) and (hostname in line) and ("initializer" not in line) and ("operator" not in line) and ("starter" not in line):
                     pod = line.split()
                     print(f"Status: {line} : {pod[2]}")
-                    if pod[2] == "Completed":
+                    if (pod[2] == "Completed") and (pod[0] not in completed):
                         results = (subprocess.check_output(["kubectl", "logs", pod[0]]).decode("utf-8"))
                         print(results)
+                        finished = True
+                        completed.append(pod[0])
                     else:
                         finished = False
             if finished :
