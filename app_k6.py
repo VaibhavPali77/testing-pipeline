@@ -68,7 +68,8 @@ try:
                     if pod[2] == "Completed":
                         results = (subprocess.check_output(["kubectl", "logs", pod[0]]).decode("utf-8"))
                         print(results)
-                        finished = True
+                    else:
+                        finished = False
             if finished :
                 break
             time.sleep(30)
