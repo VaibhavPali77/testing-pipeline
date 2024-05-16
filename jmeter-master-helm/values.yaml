@@ -1,6 +1,6 @@
-Duration: 30
+Duration: 300
 Hostname: sensitive
-Ip: 10.80.0.13
+Ip: 10.80.1.198
 Pods: '1'
 Rate: '1'
 Rpm: 30000
@@ -72,41 +72,119 @@ Script: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<jmeterTestPlan version=\"1
   \       <ConstantThroughputTimer guiclass=\"TestBeanGUI\" testclass=\"ConstantThroughputTimer\"\
   \ testname=\"Constant Throughput Timer\" enabled=\"true\">\n            <intProp\
   \ name=\"calcMode\">1</intProp>\n            <doubleProp>\n              <name>throughput</name>\n\
-  \              <value>6000.0</value>\n              <savedValue>0.0</savedValue>\n\
+  \              <value>{{ .Values.Rpm }}</value>\n              <savedValue>0.0</savedValue>\n\
   \            </doubleProp>\n          </ConstantThroughputTimer>\n          <hashTree/>\n\
   \          <com.github.johrstrom.listener.PrometheusListener guiclass=\"com.github.johrstrom.listener.gui.PrometheusListenerGui\"\
-  \ testclass=\"com.github.johrstrom.listener.PrometheusListener\" testname=\"Prometheus\
-  \ Listener\" enabled=\"true\">\n            <collectionProp name=\"prometheus.collector_definitions\"\
+  \ testclass=\"com.github.johrstrom.listener.PrometheusListener\" testname=\"Main\
+  \ prometheus listener\" enabled=\"true\">\n            <collectionProp name=\"prometheus.collector_definitions\"\
   >\n              <elementProp name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
-  >\n                <stringProp name=\"collector.help\">Sampler Response Time</stringProp>\n\
-  \                <stringProp name=\"collector.metric_name\">jmeter_rt</stringProp>\n\
+  >\n                <stringProp name=\"collector.help\">default help string</stringProp>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_ResponseTime_sum</stringProp>\n\
   \                <stringProp name=\"collector.type\">SUMMARY</stringProp>\n    \
-  \            <collectionProp name=\"collector.labels\">\n                  <stringProp\
-  \ name=\"3650\">rt</stringProp>\n                </collectionProp>\n           \
-  \     <stringProp name=\"collector.quantiles_or_buckets\">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n\
-  \                <stringProp name=\"listener.collector.listen_to\">samples</stringProp>\n\
+  \            <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n\
   \                <stringProp name=\"listener.collector.measuring\">ResponseTime</stringProp>\n\
   \              </elementProp>\n              <elementProp name=\"\" elementType=\"\
   com.github.johrstrom.listener.ListenerCollectorConfig\">\n                <stringProp\
-  \ name=\"collector.help\">Success and failure ratio</stringProp>\n             \
-  \   <stringProp name=\"collector.metric_name\">jmeter_Ratio</stringProp>\n     \
-  \           <stringProp name=\"collector.type\">SUCCESS_RATIO</stringProp>\n   \
-  \             <collectionProp name=\"collector.labels\">\n                  <stringProp\
-  \ name=\"102727412\">label</stringProp>\n                  <stringProp name=\"3059181\"\
-  >code</stringProp>\n                </collectionProp>\n                <stringProp\
+  \ name=\"collector.help\">default help string</stringProp>\n                <stringProp\
+  \ name=\"collector.metric_name\">jmeter_ResponseTime_hist</stringProp>\n       \
+  \         <stringProp name=\"collector.type\">HISTOGRAM</stringProp>\n         \
+  \       <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\">100,500,1000,3000</stringProp>\n     \
+  \         </elementProp>\n              <elementProp name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
+  >\n                <stringProp name=\"collector.help\">default help string</stringProp>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_ResponseSize_sum</stringProp>\n\
+  \                <stringProp name=\"collector.type\">SUMMARY</stringProp>\n    \
+  \            <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n\
+  \                <stringProp name=\"listener.collector.measuring\">ResponseSize</stringProp>\n\
+  \              </elementProp>\n              <elementProp name=\"\" elementType=\"\
+  com.github.johrstrom.listener.ListenerCollectorConfig\">\n                <stringProp\
+  \ name=\"collector.help\">default help string</stringProp>\n                <stringProp\
+  \ name=\"collector.metric_name\">jmeter_ResponseSize_hist</stringProp>\n       \
+  \         <stringProp name=\"collector.type\">HISTOGRAM</stringProp>\n         \
+  \       <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\">100,500,1000,3000</stringProp>\n     \
+  \           <stringProp name=\"listener.collector.measuring\">ResponseSize</stringProp>\n\
+  \              </elementProp>\n              <elementProp name=\"\" elementType=\"\
+  com.github.johrstrom.listener.ListenerCollectorConfig\">\n                <stringProp\
+  \ name=\"collector.help\">default help string</stringProp>\n                <stringProp\
+  \ name=\"collector.metric_name\">jmeter_Latency_sum</stringProp>\n             \
+  \   <stringProp name=\"collector.type\">SUMMARY</stringProp>\n                <collectionProp\
+  \ name=\"collector.labels\"/>\n                <stringProp name=\"collector.quantiles_or_buckets\"\
+  >0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n                <stringProp name=\"listener.collector.measuring\"\
+  >Latency</stringProp>\n              </elementProp>\n              <elementProp\
+  \ name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
+  >\n                <stringProp name=\"collector.help\">default help string</stringProp>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_Latency_hist</stringProp>\n\
+  \                <stringProp name=\"collector.type\">HISTOGRAM</stringProp>\n  \
+  \              <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\">100,500,1000,3000</stringProp>\n     \
+  \           <stringProp name=\"listener.collector.measuring\">Latency</stringProp>\n\
+  \              </elementProp>\n              <elementProp name=\"\" elementType=\"\
+  com.github.johrstrom.listener.ListenerCollectorConfig\">\n                <stringProp\
+  \ name=\"collector.help\">default help string</stringProp>\n                <stringProp\
+  \ name=\"collector.metric_name\">jmeter_IdleTime_sum</stringProp>\n            \
+  \    <stringProp name=\"collector.type\">SUMMARY</stringProp>\n                <collectionProp\
+  \ name=\"collector.labels\"/>\n                <stringProp name=\"collector.quantiles_or_buckets\"\
+  >0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n                <stringProp name=\"listener.collector.measuring\"\
+  >IdleTime</stringProp>\n              </elementProp>\n              <elementProp\
+  \ name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
+  >\n                <stringProp name=\"collector.help\">default help string</stringProp>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_IdleTime_hist</stringProp>\n\
+  \                <stringProp name=\"collector.type\">HISTOGRAM</stringProp>\n  \
+  \              <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\">100,500,1000,3000</stringProp>\n     \
+  \           <stringProp name=\"listener.collector.measuring\">IdleTime</stringProp>\n\
+  \              </elementProp>\n              <elementProp name=\"\" elementType=\"\
+  com.github.johrstrom.listener.ListenerCollectorConfig\">\n                <stringProp\
+  \ name=\"collector.help\">default help string</stringProp>\n                <stringProp\
+  \ name=\"collector.metric_name\">jmeter_ConnectTime_sum</stringProp>\n         \
+  \       <stringProp name=\"collector.type\">SUMMARY</stringProp>\n             \
+  \   <collectionProp name=\"collector.labels\"/>\n                <stringProp name=\"\
+  collector.quantiles_or_buckets\">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n    \
+  \            <stringProp name=\"listener.collector.measuring\">ConnectTime</stringProp>\n\
+  \              </elementProp>\n              <elementProp name=\"\" elementType=\"\
+  com.github.johrstrom.listener.ListenerCollectorConfig\">\n                <stringProp\
+  \ name=\"collector.help\">default help string</stringProp>\n                <stringProp\
+  \ name=\"collector.metric_name\">jemter_ConnectTime_hist</stringProp>\n        \
+  \        <stringProp name=\"collector.type\">HISTOGRAM</stringProp>\n          \
+  \      <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\">100,500,1000,3000</stringProp>\n     \
+  \           <stringProp name=\"listener.collector.measuring\">ConnectTime</stringProp>\n\
+  \              </elementProp>\n              <elementProp name=\"\" elementType=\"\
+  com.github.johrstrom.listener.ListenerCollectorConfig\">\n                <stringProp\
+  \ name=\"collector.help\">default help string</stringProp>\n                <stringProp\
+  \ name=\"collector.metric_name\">jemter_CountTotal</stringProp>\n              \
+  \  <stringProp name=\"collector.type\">COUNTER</stringProp>\n                <collectionProp\
+  \ name=\"collector.labels\"/>\n                <stringProp name=\"collector.quantiles_or_buckets\"\
+  ></stringProp>\n                <stringProp name=\"listener.collector.measuring\"\
+  >CountTotal</stringProp>\n              </elementProp>\n              <elementProp\
+  \ name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
+  >\n                <stringProp name=\"collector.help\">default help string</stringProp>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_FailureTotal</stringProp>\n\
+  \                <stringProp name=\"collector.type\">COUNTER</stringProp>\n    \
+  \            <collectionProp name=\"collector.labels\"/>\n                <stringProp\
   \ name=\"collector.quantiles_or_buckets\"></stringProp>\n                <stringProp\
-  \ name=\"listener.collector.listen_to\">samples</stringProp>\n                <stringProp\
-  \ name=\"listener.collector.measuring\">SuccessRatio</stringProp>\n            \
+  \ name=\"listener.collector.measuring\">FailureTotal</stringProp>\n            \
   \  </elementProp>\n              <elementProp name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
   >\n                <stringProp name=\"collector.help\">default help string</stringProp>\n\
-  \                <stringProp name=\"collector.metric_name\">jmeter_latency</stringProp>\n\
-  \                <stringProp name=\"collector.type\">SUMMARY</stringProp>\n    \
-  \            <collectionProp name=\"collector.labels\">\n                  <stringProp\
-  \ name=\"-46576386\">latency</stringProp>\n                </collectionProp>\n \
-  \               <stringProp name=\"collector.quantiles_or_buckets\">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>\n\
-  \                <stringProp name=\"listener.collector.measuring\">Latency</stringProp>\n\
-  \              </elementProp>\n            </collectionProp>\n          </com.github.johrstrom.listener.PrometheusListener>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_SuccessTotal</stringProp>\n\
+  \                <stringProp name=\"collector.type\">COUNTER</stringProp>\n    \
+  \            <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\"></stringProp>\n                <stringProp\
+  \ name=\"listener.collector.measuring\">SuccessTotal</stringProp>\n            \
+  \  </elementProp>\n              <elementProp name=\"\" elementType=\"com.github.johrstrom.listener.ListenerCollectorConfig\"\
+  >\n                <stringProp name=\"collector.help\">default help string</stringProp>\n\
+  \                <stringProp name=\"collector.metric_name\">jmeter_SuccessRatio</stringProp>\n\
+  \                <stringProp name=\"collector.type\">SUCCESS_RATIO</stringProp>\n\
+  \                <collectionProp name=\"collector.labels\"/>\n                <stringProp\
+  \ name=\"collector.quantiles_or_buckets\"></stringProp>\n                <stringProp\
+  \ name=\"listener.collector.measuring\">SuccessRatio</stringProp>\n            \
+  \  </elementProp>\n            </collectionProp>\n            <stringProp name=\"\
+  TestPlan.comments\">This listener &quot;measures&quot; everything, sometimes in\
+  \ summaries, sometimes in histograms.</stringProp>\n          </com.github.johrstrom.listener.PrometheusListener>\n\
   \          <hashTree/>\n        </hashTree>\n      </hashTree>\n    </hashTree>\n\
   \  </hashTree>\n</jmeterTestPlan>"
 Vus: 2
-WorkerIps: 10.80.1.107
+WorkerIps: 10.80.1.215

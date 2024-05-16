@@ -8,10 +8,12 @@ spec:
   selector:
     matchLabels:
       app: {{.Values.Hostname}}-jmeter
+      tool: jmeter
   template:
     metadata:
       labels:
         app: {{.Values.Hostname}}-jmeter
+        tool: jmeter
     spec:
       volumes:
       - name: jmeter-test-script

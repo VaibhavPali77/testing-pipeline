@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Users">
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">0</intProp>
+        <longProp name="ThreadGroup.duration">300</longProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request">
+          <stringProp name="HTTPSampler.domain">{{ .Values.Ip }}</stringProp>
+          <stringProp name="HTTPSampler.port">8000</stringProp>
+          <stringProp name="HTTPSampler.path">/</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+          &quot;_id&quot;: &quot;65485b432c70f3cfa43c08aa&quot;,&#xd;
+          &quot;index&quot;: 0,&#xd;
+          &quot;guid&quot;: &quot;2110fa89-13d0-491a-854a-a59fce6c0e70&quot;,&#xd;
+          &quot;isActive&quot;: false,&#xd;
+          &quot;balance&quot;: &quot;$3,571.66&quot;,&#xd;
+          &quot;picture&quot;: &quot;http://placehold.it/32x32&quot;,&#xd;
+          &quot;age&quot;: 35,&#xd;
+          &quot;eyeColor&quot;: &quot;blue&quot;,&#xd;
+          &quot;name&quot;: &quot;Wood Chase&quot;,&#xd;
+          &quot;gender&quot;: &quot;male&quot;,&#xd;
+          &quot;company&quot;: &quot;INVENTURE&quot;,&#xd;
+          &quot;email&quot;: &quot;woodchase@inventure.com&quot;,&#xd;
+          &quot;phone&quot;: &quot;+1 (854) 550-2920&quot;,&#xd;
+          &quot;address&quot;: &quot;355 Times Placez, Hasty, Florida, 4847&quot;,&#xd;
+          &quot;about&quot;: &quot;Aliquip elit Lorem et velit sint nisi dolore Lorem occaecat laborum consectetur enim. Et incididunt voluptate qui deserunt dolore magna aliqua tempor nulla. Ea irure aliquip ex non reprehenderit non aliquip laboris ad minim duis anim. Quis amet enim voluptate qui est incididunt ea nostrud. In elit cillum reprehenderit eiusmod. Laboris reprehenderit velit laboris non Lorem excepteur excepteur. Cupidatat est laboris reprehenderit consectetur incididunt laborum.\r\n&quot;,&#xd;
+          &quot;registered&quot;: &quot;2020-07-21T12:38:35 -06:-30&quot;,&#xd;
+          &quot;latitude&quot;: -15.079694,&#xd;
+          &quot;longitude&quot;: 156.292971,&#xd;
+          &quot;tags&quot;: [&#xd;
+              &quot;dolore&quot;,&#xd;
+              &quot;labore&quot;,&#xd;
+              &quot;mollit&quot;,&#xd;
+              &quot;incididunt&quot;,&#xd;
+              &quot;sit&quot;,&#xd;
+              &quot;dolore&quot;,&#xd;
+              &quot;aliqua&quot;&#xd;
+          ],&#xd;
+          &quot;friends&quot;: [&#xd;
+              {&#xd;
+                  &quot;id&quot;: 0,&#xd;
+                  &quot;name&quot;: &quot;Carly Pate&quot;&#xd;
+              },&#xd;
+              {&#xd;
+                  &quot;id&quot;: 1,&#xd;
+                  &quot;name&quot;: &quot;Amy Woods&quot;&#xd;
+              },&#xd;
+              {&#xd;
+                  &quot;id&quot;: 2,&#xd;
+                  &quot;name&quot;: &quot;Allison Castillo&quot;&#xd;
+              }&#xd;
+          ],&#xd;
+          &quot;greeting&quot;: &quot;Hello, Wood Chase! You have 1 unread messages.&quot;,&#xd;
+          &quot;favoriteFruit&quot;: &quot;apple&quot;&#xd;
+      }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
+            <intProp name="calcMode">1</intProp>
+            <doubleProp>
+              <name>throughput</name>
+              <value>6000.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+          <com.github.johrstrom.listener.PrometheusListener guiclass="com.github.johrstrom.listener.gui.PrometheusListenerGui" testclass="com.github.johrstrom.listener.PrometheusListener" testname="Prometheus Listener" enabled="true">
+            <collectionProp name="prometheus.collector_definitions">
+              <elementProp name="" elementType="com.github.johrstrom.listener.ListenerCollectorConfig">
+                <stringProp name="collector.help">Sampler Response Time</stringProp>
+                <stringProp name="collector.metric_name">jmeter_rt</stringProp>
+                <stringProp name="collector.type">SUMMARY</stringProp>
+                <collectionProp name="collector.labels">
+                  <stringProp name="3650">rt</stringProp>
+                </collectionProp>
+                <stringProp name="collector.quantiles_or_buckets">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>
+                <stringProp name="listener.collector.listen_to">samples</stringProp>
+                <stringProp name="listener.collector.measuring">ResponseTime</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="com.github.johrstrom.listener.ListenerCollectorConfig">
+                <stringProp name="collector.help">Success and failure ratio</stringProp>
+                <stringProp name="collector.metric_name">jmeter_Ratio</stringProp>
+                <stringProp name="collector.type">SUCCESS_RATIO</stringProp>
+                <collectionProp name="collector.labels">
+                  <stringProp name="102727412">label</stringProp>
+                  <stringProp name="3059181">code</stringProp>
+                </collectionProp>
+                <stringProp name="collector.quantiles_or_buckets"></stringProp>
+                <stringProp name="listener.collector.listen_to">samples</stringProp>
+                <stringProp name="listener.collector.measuring">SuccessRatio</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="com.github.johrstrom.listener.ListenerCollectorConfig">
+                <stringProp name="collector.help">default help string</stringProp>
+                <stringProp name="collector.metric_name">jmeter_latency</stringProp>
+                <stringProp name="collector.type">SUMMARY</stringProp>
+                <collectionProp name="collector.labels">
+                  <stringProp name="-46576386">latency</stringProp>
+                </collectionProp>
+                <stringProp name="collector.quantiles_or_buckets">0.75,0.5|0.95,0.1|0.99,0.01</stringProp>
+                <stringProp name="listener.collector.measuring">Latency</stringProp>
+              </elementProp>
+            </collectionProp>
+          </com.github.johrstrom.listener.PrometheusListener>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

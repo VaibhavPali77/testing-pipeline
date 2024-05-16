@@ -88,7 +88,7 @@ values = {}
 Vus = 2
 Rate = "1"
 Rps = 500
-Duration = 30
+Duration = 300
 try:
     Pods = os.environ["DISTRIBUTED_PODS"]
 except:
