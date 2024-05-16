@@ -15,6 +15,7 @@ spec:
       labels:
         app: {{.Values.Hostname}}-jmeter
         tool: jmeter
+        test: {{.Values.Hostname}}
     spec:
       volumes:
       - name: jmeter-test-script
