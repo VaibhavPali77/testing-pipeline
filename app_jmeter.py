@@ -206,5 +206,5 @@ try:
             time.sleep(30)
 finally:
     print("\n\n\n\n........deleting jmeter instance")
-    os.system(f"helm uninstall{hostname}-jmeter-workers")
+    os.system(f"helm uninstall {hostname}-jmeter-workers")
     os.system(f"helm uninstall {hostname}-jmeter-master")
