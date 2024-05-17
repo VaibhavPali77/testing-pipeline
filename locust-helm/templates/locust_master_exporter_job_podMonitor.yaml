@@ -1,18 +1,18 @@
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: {{.Values.Hostname}}-locust-exporter
-  annotations:
-    helm.sh/hook-weight: "5"
-  labels:
-    team: locust
-spec:
-  selector:
-    matchLabels:
-      app: {{.Values.Hostname}}-locust-exporter
+# apiVersion: monitoring.coreos.com/v1
+# kind: PodMonitor
+# metadata:
+#   name: {{.Values.Hostname}}-locust-exporter
+#   annotations:
+#     helm.sh/hook-weight: "5"
+#   labels:
+#     team: locust
+# spec:
+#   selector:
+#     matchLabels:
+#       app: {{.Values.Hostname}}-locust-exporter
 
-  podMetricsEndpoints:
-  - port: lcprom
+#   podMetricsEndpoints:
+#   - port: lcprom
 
-  podTargetLabels:
-  - app
+#   podTargetLabels:
+#   - app
