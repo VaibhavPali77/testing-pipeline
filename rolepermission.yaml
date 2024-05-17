@@ -1,17 +1,17 @@
-kind: ClusterRole
+kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: frame-pod
+  name: frame-pod-role
 rules:
 - apiGroups: ["*"]
   resources: ["*"]
-  verbs: ["list"]
+  verbs: ["*"]
 
 ---
-kind: ClusterRoleBinding
+kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: frame-pod
+  name: frame-pod-rolebinding
 subjects:
 # - kind: Group
 #   name: system:serviceaccounts
@@ -19,8 +19,7 @@ subjects:
 
 - kind: ServiceAccount
   name: testkube-api-server-tests-job
-  namespace: testkube
 roleRef:
-  kind: ClusterRole
-  name: frame-pod
+  kind: Role
+  name: frame-pod-role
   apiGroup: rbac.authorization.k8s.io
