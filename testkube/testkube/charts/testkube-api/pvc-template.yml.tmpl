@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Name }}-pvc
+  namespace: {{ .Namespace }}
+spec:
+  storageClassName: {{ .ArtifactRequest.StorageClassName }}
+  accessModes:
+  {{- if .ArtifactRequest.SharedBetweenPods }}
+    - ReadWriteMany
+  {{- else }}
+    - ReadWriteOnce
+  {{- end }}
+  resources:
+    requests:
+      storage: 1Gi

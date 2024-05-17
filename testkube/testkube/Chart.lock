@@ -1,0 +1,24 @@
+dependencies:
+- name: testkube-operator
+  repository: file://../testkube-operator
+  version: 1.16.35
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 13.10.1
+- name: nats
+  repository: https://nats-io.github.io/k8s/helm/charts/
+  version: 1.1.7
+- name: testkube-api
+  repository: file://../testkube-api
+  version: 1.16.39
+- name: testkube-dashboard
+  repository: file://../testkube-dashboard
+  version: 1.16.7
+- name: testkube-logs
+  repository: file://../testkube-logs
+  version: 0.2.0
+- name: global
+  repository: file://../global
+  version: 0.1.2
+digest: sha256:606d298babd11ca884e999cd0ca69e50a3b16ab86fa6b04cfbd0ffc83c5b998e
+generated: "2024-03-12T21:43:46.478136496Z"

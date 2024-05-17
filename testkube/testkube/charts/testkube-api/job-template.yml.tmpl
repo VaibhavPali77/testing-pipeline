@@ -1,0 +1,159 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Name }}"
+  namespace: {{ .Namespace }}
+spec:
+  {{- if gt .ActiveDeadlineSeconds 0 }}
+  activeDeadlineSeconds: {{ .ActiveDeadlineSeconds }}
+  {{- end }}
+  template:
+    spec:
+      initContainers:
+      - name: {{ .Name }}-init
+        {{- if .Registry }}
+        image: {{ .Registry }}/{{ .InitImage }}
+        {{- else }}
+        image: {{ .InitImage }}
+        {{- end }}
+        imagePullPolicy: IfNotPresent
+        command:
+          - "/bin/runner"
+          - '{{ .Jsn }}'
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
+        {{- if .CertificateSecret }}
+        - name: {{ .CertificateSecret }}
+          mountPath: /etc/certs
+        {{- end }}
+        {{- if .ArtifactRequest }}
+          {{- if and .ArtifactRequest.VolumeMountPath .ArtifactRequest.StorageClassName }}
+        - name: artifact-volume
+          mountPath: {{ .ArtifactRequest.VolumeMountPath }}
+          {{- end }}
+        {{- end }}
+        {{- range $configmap := .EnvConfigMaps }}
+        {{- if and $configmap.Mount $configmap.Reference }}
+        - name: {{ $configmap.Reference.Name }}
+          mountPath: {{ $configmap.MountPath }}
+        {{- end }}
+        {{- end }}
+        {{- range $secret := .EnvSecrets }}
+        {{- if and $secret.Mount $secret.Reference }}
+        - name: {{ $secret.Reference.Name }}
+          mountPath: {{ $secret.MountPath }}
+        {{- end }}
+        {{- end }}
+      containers:
+      {{ if .Features.LogsV2 -}}
+      - name: "{{ .Name }}-logs"
+        {{- if .Registry }}
+        image: {{ .Registry }}/{{ .LogSidecarImage }}
+        {{- else }}
+        image: {{ .LogSidecarImage }}
+        {{- end }}
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: DEBUG
+          value: {{ if .Debug }}"true"{{ else }}"false"{{ end }}
+        - name: NAMESPACE
+          value: {{ .Namespace }}
+        - name: NATS_URI
+          value: {{ .NatsUri }}
+        - name: ID
+          value: {{ .Name }}
+        - name: GROUP
+          value: test
+        - name: SOURCE
+          value: "test:{{ .Name }}"
+      {{- end }}
+      - name: "{{ .Name }}"
+        {{- if .Registry }}
+        image: {{ .Registry }}/{{ .Image }}
+        {{- else }}
+        image: {{ .Image }}
+        {{- end }}
+        imagePullPolicy: IfNotPresent
+        command:
+          - "/bin/runner"
+          - '{{ .Jsn }}'
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
+        {{- if .CertificateSecret }}
+        - name: {{ .CertificateSecret }}
+          mountPath: /etc/certs
+        {{- end }}
+        {{- if .AgentAPITLSSecret }}
+        - mountPath: /tmp/agent-cert
+          readOnly: true
+          name: {{ .AgentAPITLSSecret }}
+        {{- end }}
+        {{- if .ArtifactRequest }}
+          {{- if and .ArtifactRequest.VolumeMountPath .ArtifactRequest.StorageClassName }}
+        - name: artifact-volume
+          mountPath: {{ .ArtifactRequest.VolumeMountPath }}
+          {{- end }}
+        {{- end }}
+        {{- range $configmap := .EnvConfigMaps }}
+        {{- if and $configmap.Mount $configmap.Reference }}
+        - name: {{ $configmap.Reference.Name }}
+          mountPath: {{ $configmap.MountPath }}
+        {{- end }}
+        {{- end }}
+        {{- range $secret := .EnvSecrets }}
+        {{- if and $secret.Mount $secret.Reference }}
+        - name: {{ $secret.Reference.Name }}
+          mountPath: {{ $secret.MountPath }}
+        {{- end }}
+        {{- end }}
+      volumes:
+      - name: data-volume
+        emptyDir: {}
+      {{- if .CertificateSecret }}
+      - name: {{ .CertificateSecret }}
+        secret:
+          secretName: {{ .CertificateSecret }}
+      {{- end }}
+      {{- if .AgentAPITLSSecret }}
+      - name: {{ .AgentAPITLSSecret }}
+        secret:
+          secretName: {{ .AgentAPITLSSecret }}
+      {{- end }}
+      {{- if .ArtifactRequest }}
+        {{- if and .ArtifactRequest.VolumeMountPath .ArtifactRequest.StorageClassName }}
+      - name: artifact-volume
+        persistentVolumeClaim:
+          claimName: {{ .Name }}-pvc
+        {{- end }}
+      {{- end }}
+      {{- range $configmap := .EnvConfigMaps }}
+      {{- if and $configmap.Mount $configmap.Reference }}
+      - name: {{ $configmap.Reference.Name }}
+        configmap:
+          name: {{ $configmap.Reference.Name }}
+      {{- end }}
+      {{- end }}
+      {{- range $secret := .EnvSecrets }}
+      {{- if and $secret.Mount $secret.Reference }}
+      - name: {{ $secret.Reference.Name }}
+        secret:
+          secretName: {{ $secret.Reference.Name }}
+      {{- end }}
+      {{- end }}
+      restartPolicy: Never
+      {{- if .ServiceAccountName }}
+      serviceAccountName: {{ .ServiceAccountName }}
+      {{- end }}
+      {{- if gt (len .ImagePullSecrets) 0 }}
+      imagePullSecrets:
+      {{- range $secret := .ImagePullSecrets }}
+      - name: {{ $secret -}}
+      {{- end }}
+      {{- end }}
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 180

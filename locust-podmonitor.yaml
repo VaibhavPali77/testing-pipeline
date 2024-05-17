@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: locust-exporter
+  labels:
+    team: locust
+spec:
+  selector:
+    matchLabels:
+      tool: locust
+
+  podMetricsEndpoints:
+  - port: lcprom
+
+  podTargetLabels:
+  - app
