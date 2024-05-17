@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{.Values.Hostname}}-locust-exporter
-  tool: locust
   annotations:
     helm.sh/hook-weight: "4"
 spec:
@@ -11,10 +10,12 @@ spec:
   selector:
     matchLabels:
       app: {{.Values.Hostname}}-locust-exporter
+      tool: locust
   template:
     metadata:
       labels:
         app: {{.Values.Hostname}}-locust-exporter
+        tool: locust
     spec:
       containers:
       - name: {{.Values.Hostname}}-locust-exporter-container
