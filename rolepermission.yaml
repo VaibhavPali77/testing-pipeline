@@ -8,6 +8,7 @@ rules:
   verbs: ["*"]
 
 ---
+
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -19,6 +20,20 @@ subjects:
 
 - kind: ServiceAccount
   name: testkube-api-server-tests-job
+roleRef:
+  kind: Role
+  name: frame-pod-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: frame-pod-rolebinding-default
+subjects:
+- kind: ServiceAccount
+  name: default
 roleRef:
   kind: Role
   name: frame-pod-role

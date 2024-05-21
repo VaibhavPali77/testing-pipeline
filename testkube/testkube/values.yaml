@@ -499,7 +499,7 @@ testkube-api:
   # uiIngress parameters
   uiIngress:
     # -- Use Ingress
-    enabled: false
+    enabled: false 
     # -- Additional annotations for the Ingress resource.
     annotations: {}
     # e.g. annotations for NGINX Ingress Controller:
@@ -533,7 +533,7 @@ testkube-api:
   # cliIngress parameters
   cliIngress:
     # -- Use ingress
-    enabled: false
+    enabled: false 
     # -- Additional annotations for the Ingress resource.
     annotations: {}
     # e.g. annotations for NGINX Ingress Controller:
